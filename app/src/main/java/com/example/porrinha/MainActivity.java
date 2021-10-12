@@ -25,7 +25,7 @@ import butterknife.OnItemSelected;
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class MainActivity extends AppCompatActivity {
 
-    private int totalPalitos = (this.palitosApp + this.palitosUsuario);
+    private int totalPalitos;
     private List<ImageView> palitos = new ArrayList<>();
     private Button button;
     private ImageView maoFechada;
@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView palitoDois;
     private ImageView palitoTres;
     private TextView txtResultado;
+    private TextView txtPlacar;
     private Spinner spinnerChute;
     private Spinner spinnerPalitos;
 
@@ -71,7 +72,9 @@ public class MainActivity extends AppCompatActivity {
         this.txtResultado = this.findViewById(R.id.txtResultado);
         this.spinnerChute = this.findViewById(R.id.spinnerChute);
         this.spinnerPalitos = this.findViewById(R.id.spinnerPalito);
+        this.txtPlacar = this.findViewById(R.id.txtPlacar);
         this.palitos.addAll(Arrays.asList(this.palitoUm, this.palitoDois, this.palitoTres));
+        this.txtPlacar.setText("Placar - Usuário: "+this.palitosUsuario+" App: "+this.palitosApp);
     }
 
     private void addActionsToButtons() {
@@ -90,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         this.loadSpinnerChute();
         this.loadSpinnerPalitos();
         this.ifThereIsWinner();
+        this.txtPlacar.setText("Placar: Usuário: "+this.palitosUsuario+" App: "+this.palitosApp);
     }
 
     private void ifThereIsWinner() {
@@ -128,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
         }
         if (this.chuteApp == this.chuteUsuario) {
             this.txtResultado.setText("Empate!!!\nResultado: " + this.sumUserAndApp + "\nChute usuário: " + this.chuteUsuario + "\nChute App: " + this.chuteApp);
-            this.palitosUsuario--;
             return;
         }
         if (this.sumUserAndApp == this.chuteUsuario) {
@@ -151,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadSpinnerChute() {
+        this.totalPalitos = (this.palitosApp + this.palitosUsuario);
         List<String> view = new ArrayList<>();
 
         for (int i = 0; i <= totalPalitos; i++) {
